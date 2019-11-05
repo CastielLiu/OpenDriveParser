@@ -16,7 +16,9 @@
 OpenDriveParseHandler::OpenDriveParseHandler(OpenDriveMap* map) :
   map_(map)
 {
-    out_file_.open("/home/wendao/Desktop/map.txt");
+    QString pwd = QDir::currentPath();
+    QString dst = pwd + "/../road_net/all_points.txt";
+    out_file_.open(dst.toStdString());
 }
 
 OpenDriveParseHandler::~OpenDriveParseHandler()
@@ -130,7 +132,7 @@ bool OpenDriveParseHandler::startElement(const QString& namespaceURI,
       OpenDriveRoadLanePoint *point = new OpenDriveRoadLanePoint();
       set_map_elements(atts, point->function_map_);
 
-      qDebug() <<"+++++++++++++++++++" << point->x_ << "\t" << point->y_ << "\t" << point->z_ ;
+     // qDebug() <<"+++++++++++++++++++" << point->x_ << "\t" << point->y_ << "\t" << point->z_ ;
 
       if(last_points_parent_.size())
       {
@@ -216,11 +218,13 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
     QDir dir(path);
     if(!dir.exists())
     {
+        qDebug() << path << " not exits !";
         if(!dir.mkdir(path))
         {
             qDebug() << "create directory " << path << "failed!!";
             return false;
         }
+        qDebug() << "create " << path << "completed";
     }
 
     for(size_t i=0; i<map_->roads_.size(); ++i)
@@ -248,6 +252,7 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
         }
 
     }
+    qDebug() << "roads info saved in " << path;
 
     return true;
 }

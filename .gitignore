@@ -36,3 +36,7 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user
 
+# data
+road_net/pathInfo
+road_net/*.txt
+
