@@ -121,7 +121,7 @@ def main(argv):
 	delta_y = 2.0
 	points = offsetPoints(points, 288477.894+delta_x, 3496772.181+delta_y) #平移
 	points = interpolate(points)#插值
-	points = generateMaxSpeed(points,1.5)
+#	points = generateMaxSpeed(points,1.5)
 	
 	if(len(argv) == 3):
 		dumpPoints(argv[2],points)
