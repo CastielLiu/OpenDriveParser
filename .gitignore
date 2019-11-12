@@ -39,4 +39,5 @@ CMakeLists.txt.user
 # data
 road_net/pathInfo
 road_net/*.txt
+road_net/*.xml
 

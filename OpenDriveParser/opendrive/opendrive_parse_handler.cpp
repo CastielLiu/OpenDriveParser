@@ -231,8 +231,9 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
     {
         auto &road = map_->roads_[i];
         QString roadName = road->get_name();
-        //QString fileName = path + "/" + roadName + ".txt";
-        QString fileName = path + "/" + QString::number(i) + ".txt";
+        QString roadId = road->get_id();
+        QString fileName = path + "/" + roadId + ".txt";
+        //QString fileName = path + "/" + QString::number(i) + ".txt";
         std::ofstream out_file;
         out_file.open(fileName.toStdString());
         if(!out_file.is_open())
@@ -250,7 +251,6 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
                 out_file << point->x_ << "\t" << point->y_ << "\t" << point->z_ << std::endl;
             }
         }
-
     }
     qDebug() << "roads info saved in " << path;
 
