@@ -251,6 +251,7 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
                 out_file << point->x_ << "\t" << point->y_ << "\t" << point->z_ << std::endl;
             }
         }
+
     }
     qDebug() << "roads info saved in " << path;
 

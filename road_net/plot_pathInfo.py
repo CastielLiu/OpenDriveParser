@@ -29,6 +29,7 @@ def drawRoad(road_file, color='r-*'):
 	data = road_file.split('/')
 	text,_ = data[-1].split('.');
 	plt.plot(points[1,0],points[1,1], color+'.')
+	plt.plot(points[-1,0],points[-1,1], color+'*')
 	plt.text(points[1,0],points[1,1],text)
 	
 	
