@@ -40,6 +40,14 @@ bool OpenDriveParseUtil::set_parsed_value<unsigned int>(const QString& value,
 }
 
 template<>
+bool OpenDriveParseUtil::set_parsed_value<int>(const QString& value,
+                                               int& recipient) {
+  bool conversion_ok = true;
+  recipient = value.toInt(&conversion_ok);
+  return conversion_ok;
+}
+
+template<>
 bool OpenDriveParseUtil::set_parsed_value<short>(const QString& value,
                                                  short& recipient) {
   bool conversion_ok = true;

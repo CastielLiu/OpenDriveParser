@@ -232,26 +232,62 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
         auto &road = map_->roads_[i];
         QString roadName = road->get_name();
         QString roadId = road->get_id();
-        QString fileName = path + "/" + roadId + ".txt";
-        //QString fileName = path + "/" + QString::number(i) + ".txt";
-        std::ofstream out_file;
-        out_file.open(fileName.toStdString());
-        if(!out_file.is_open())
-        {
-            std::cout << "open " << fileName.toStdString() << "failed !!!" << std::endl;
-            return false;
-        }
+        QString dirName = path+"/"+roadId;
+        QDir dir(dirName); dir.mkdir(dirName);
+
         auto &laneSections = road->lanes_->lane_sections_;
         for(size_t j=0; j<laneSections.size();++j)
-        {
+        {   
             auto &centerLanes = laneSections[j]->center_lanes_;
+            QString fileName = dirName + "/" +roadId+ "s" +QString::number(j) + "c.txt"; //center
+            std::ofstream out_file;
+            out_file.open(fileName.toStdString());
+            if(!out_file.is_open())
+            {
+                std::cout << "open " << fileName.toStdString() << "failed !!!" << std::endl;
+                return false;
+            }
+
             for(size_t k=0; k<centerLanes->at(0)->points.size(); ++k)
             {
                 auto point = centerLanes->at(0)->points[k];
                 out_file << point->x_ << "\t" << point->y_ << "\t" << point->z_ << std::endl;
             }
-        }
+            out_file.close();
 
+            //left
+            auto &leftLanes = laneSections[j]->left_lanes_;
+            for(size_t l=0; l<leftLanes->size(); ++l)
+            {
+              //  qDebug() << leftLanes->at(l)->get_id() ;
+                fileName = dirName + "/" +roadId+
+                        "s" +QString::number(j) +
+                        "l"+ QString::number(leftLanes->at(l)->get_id()) + ".txt"; //left
+                out_file.open(fileName.toStdString());
+                for(size_t m=0; m<leftLanes->at(l)->points.size(); ++m)
+                {
+                    auto point = leftLanes->at(l)->points[m];
+                    out_file << point->x_ << "\t" << point->y_ << "\t" << point->z_ << std::endl;
+                }
+                out_file.close();
+            }
+
+            //right
+            auto &rightLanes = laneSections[j]->right_lanes_;
+            for(size_t l=0; l<rightLanes->size(); ++l)
+            {
+                fileName = dirName + "/" +roadId+
+                        "s" +QString::number(j) +
+                        "r"+ QString::number(rightLanes->at(l)->get_id()) + ".txt"; //right
+                out_file.open(fileName.toStdString());
+                for(size_t m=0; m<rightLanes->at(l)->points.size(); ++m)
+                {
+                    auto point = rightLanes->at(l)->points[m];
+                    out_file << point->x_ << "\t" << point->y_ << "\t" << point->z_ << std::endl;
+                }
+                out_file.close();
+            }
+        }
     }
     qDebug() << "roads info saved in " << path;
 
