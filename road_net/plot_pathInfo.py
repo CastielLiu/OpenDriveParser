@@ -22,13 +22,19 @@ def drawRoad(road_file, color='r-*'):
 			points.append([x,y])
 
 	points = np.array(points)
-	
+
 	#add text
 	data = road_file.split('/')
-	text,_ = data[-1].split('.');
-	plt.plot(points[1,0],points[1,1], color+'*')
-	plt.plot(points[-1,0],points[-1,1], color+'o')
-	plt.text(points[1,0],points[1,1],text)
+	text,_ = data[-1].split('.')
+
+	plt.plot(points[-1,0],points[-1,1], color) #end point
+
+	if(len(points) == 2):
+		plt.plot((points[0,0]+points[1,0])/2, (points[0,1]+points[1,1])/2, color+'.')
+		plt.text((points[0,0]+points[1,0])/2, (points[0,1]+points[1,1])/2,text)
+	else:
+		plt.plot(points[1,0],points[1,1], color+'.')
+		plt.text(points[1,0],points[1,1],text)
 	
 	if(text[-1] == 'c'):
 		plt.plot(points[:,0],points[:,1], color+'-.')
@@ -58,10 +64,10 @@ def main():
 	
 	cnt = 0
 	for _file in dir_list:
-#		data = _file.split('/')
-#		text,_ = data[-1].split('.');
-#		if(text[0] != 'R'):
-#			continue
+		data = _file.split('/')
+		text,_ = data[-1].split('.');
+		if(text[0] == 'R'):
+			continue
 		color = colorList[cnt%6]
 		drawRoad(_file, color)
 		cnt = cnt + 1
@@ -69,7 +75,7 @@ def main():
 	#temp
 	#drawRoad('j04.txt', 'b*')
 	
-	plt.savefig('a.png',dpi=600)
+	plt.savefig('a.pdf',dpi=1200)
 	plt.show()
 
 

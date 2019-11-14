@@ -232,8 +232,9 @@ bool OpenDriveParseHandler::save_road_points(const QString& path)
         auto &road = map_->roads_[i];
         QString roadName = road->get_name();
         QString roadId = road->get_id();
-        QString dirName = path+"/"+roadId;
-        QDir dir(dirName); dir.mkdir(dirName);
+//        QString dirName = path+"/"+roadId;
+//       QDir dir(dirName); dir.mkdir(dirName); //create different dir for different road
+        QString dirName = path; // all path file in same dir
 
         auto &laneSections = road->lanes_->lane_sections_;
         for(size_t j=0; j<laneSections.size();++j)
