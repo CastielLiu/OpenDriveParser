@@ -26,12 +26,12 @@ def drawRoad(road_file, color='r-*'):
 	#add text
 	data = road_file.split('/')
 	text,_ = data[-1].split('.');
-	plt.plot(points[1,0],points[1,1], color+'.')
-	plt.plot(points[-1,0],points[-1,1], color+'*')
-	#plt.text(points[1,0],points[1,1],text)
+	plt.plot(points[1,0],points[1,1], color+'*')
+	plt.plot(points[-1,0],points[-1,1], color+'o')
+	plt.text(points[1,0],points[1,1],text)
 	
 	if(text[-1] == 'c'):
-		plt.plot(points[:,0],points[:,1], color+'-o')
+		plt.plot(points[:,0],points[:,1], color+'-.')
 	else:
 		plt.plot(points[:,0],points[:,1], color)
 		
@@ -58,7 +58,9 @@ def main():
 	
 	cnt = 0
 	for _file in dir_list:
-#		if(_file[0] == 'I'):
+#		data = _file.split('/')
+#		text,_ = data[-1].split('.');
+#		if(text[0] != 'R'):
 #			continue
 		color = colorList[cnt%6]
 		drawRoad(_file, color)

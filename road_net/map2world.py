@@ -117,7 +117,7 @@ def main(argv):
 	points = loadPoints(argv[1])
 	points = generateRHO(points) #生成曲率
 	points = rotation(points,1.3) #旋转
-	delta_x = -0.2
+	delta_x = 0.0
 	delta_y = 2.0
 	points = offsetPoints(points, 288477.894+delta_x, 3496772.181+delta_y) #平移
 	points = interpolate(points)#插值
