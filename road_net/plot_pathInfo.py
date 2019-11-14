@@ -28,7 +28,7 @@ def drawRoad(road_file, color='r-*'):
 	text,_ = data[-1].split('.');
 	plt.plot(points[1,0],points[1,1], color+'.')
 	plt.plot(points[-1,0],points[-1,1], color+'*')
-	#plt.text(points[1,0],points[1,1],text)
+	plt.text(points[1,0],points[1,1],text, fontdict={'size': 20, 'color':  'red'})
 	
 	if(text[-1] == 'c'):
 		plt.plot(points[:,0],points[:,1], color+'-o')
@@ -64,8 +64,6 @@ def main():
 		drawRoad(_file, color)
 		cnt = cnt + 1
 
-	#temp
-	#drawRoad('j04.txt', 'b*')
 	
 	plt.savefig('a.png',dpi=600)
 	plt.show()
